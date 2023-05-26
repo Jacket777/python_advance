@@ -1,0 +1,49 @@
+"""
+装饰器应用的顺序
+多个装饰器使用
+"""
+
+
+# TODO 1 第一个装饰器方法
+def decorated_by(func):
+    func.__doc__ += '\nDecorated by decorated_by function'
+    return func
+
+
+# TODO 2 第二个装饰器方法
+def also_decorated_by(func):
+    func.__doc__ += '\nDecorated by also_decorated_by function'
+    return func
+
+
+# TODO 3 被装饰的方法
+def min(x, y):
+    """Return the min of x and y"""
+    return x if x < y else y
+
+
+# TODO 4 多个装饰器应用原理测试
+def test01():
+    print("第一个装饰器应用")
+    min01 = decorated_by(min)
+    help(min01)
+    print("第二个装饰器应用")
+    min02 = also_decorated_by(min01)
+    help(min02)
+
+
+# TODO 5 被装饰器装饰过的方法
+@also_decorated_by
+@decorated_by
+def add(x, y):
+    """Return the sum of x and y"""
+    return x + y
+
+
+# TODO 6 测试多个装饰器修饰的方法
+def test02():
+    help(add)
+
+
+if __name__ == '__main__':
+    test01()
